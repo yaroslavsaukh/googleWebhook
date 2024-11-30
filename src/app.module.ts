@@ -4,6 +4,7 @@ import { RowsModule } from './rows/rows.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { EmailModule } from './email/email.module';
 import { WebhookGateway } from './websoket/websoket.gateway';
+import { LoggerModule } from './logger/logger.interceptor';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { WebhookGateway } from './websoket/websoket.gateway';
     RowsModule,
     AnalyticsModule,
     EmailModule,
+    LoggerModule,
   ],
   providers: [WebhookGateway],
 })
