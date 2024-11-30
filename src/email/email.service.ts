@@ -1,19 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import * as sgMail from '@sendgrid/mail';
+import * as mailgun from 'mailgun-js';
 
 @Injectable()
 export class EmailService {
+  private mg: mailgun.Mailgun;
+
   constructor() {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    this.mg = mailgun({
+      apiKey: process.env.MAILGUN_API_KEY,
+      domain: process.env.MAILGUN_DOMAIN,
+    });
   }
 
   async sendEmail(to: string[], subject: string, text: string) {
-    const msg = {
-      to,
-      from: 'your-email@example.com',
+    const data = {
+      from: 'your-email@example.com', // Ваша відправна адреса
+      to: to.join(','), // перетворюємо масив адрес на рядок
       subject,
       text,
     };
-    await sgMail.sendMultiple(msg);
+
+    try {
+      // Відправка email
+      const response = await this.mg.messages().send(data);
+      console.log('Email sent:', response);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw new Error('Failed to send email');
+    }
   }
 }
