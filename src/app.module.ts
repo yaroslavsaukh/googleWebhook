@@ -9,13 +9,9 @@ import { WebhookGateway } from './websoket/websoket.gateway';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'google-webhook',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, // У продакшні краще встановити false
+      url: 'postgresql://postgres:wp9GfjL6A3KSH8EK@jaggedly-tangible-sandgrouse.data-1.use1.tembo.io:5432/postgres?sslmode=verify-full&sslrootcert=ca.crt',
+      autoLoadEntities: true,
+      synchronize: true,
     }),
     RowsModule,
     AnalyticsModule,
