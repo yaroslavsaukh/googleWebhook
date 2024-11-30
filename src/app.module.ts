@@ -9,9 +9,13 @@ import { WebhookGateway } from './websoket/websoket.gateway';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
-      autoLoadEntities: true,
-      synchronize: true,
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'google-webhook',
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true, // У продакшні краще встановити false
     }),
     RowsModule,
     AnalyticsModule,

@@ -1,5 +1,6 @@
 import { Controller, Get, Param, Post, Body, Query } from '@nestjs/common';
 import { RowsService } from './rows.service';
+import { Row } from './row.entity';
 
 @Controller('rows')
 export class RowsController {
@@ -7,16 +8,17 @@ export class RowsController {
 
   @Get()
   async getAllRows() {
-    return this.rowsService.findAll();
+    return this.rowsService.getAllRows();
   }
 
   @Get(':id')
   async getRow(@Param('id') id: string) {
-    return this.rowsService.findOne(+id);
+    return this.rowsService.getRowById(+id);
   }
 
   @Post()
   async saveRow(@Body('content') content: string) {
-    return this.rowsService.saveRow(content);
+    const data: Partial<Row> = { content };
+    return this.rowsService.addRow(data);
   }
 }
