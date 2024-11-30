@@ -16,8 +16,8 @@ export class EmailService {
 
   async sendEmail(to: string[], subject: string, text: string) {
     const data = {
-      from: 'yaroslav2002vas@gmail.com', // Ваша відправна адреса
-      to: to.join(','), // перетворюємо масив адрес на рядок
+      from: 'yaroslav2002vas@gmail.com',
+      to: to.join(','),
       subject,
       text,
     };
