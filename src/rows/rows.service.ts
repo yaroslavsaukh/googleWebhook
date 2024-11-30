@@ -30,7 +30,7 @@ export class RowsService {
   private async sendEmailNotification(rowCount: number): Promise<void> {
     const subject = `У Google Sheets збережено ${rowCount} рядків`;
     const message = `Google Sheets оновлено: додано новий рядок. Загальна кількість рядків: ${rowCount}.`;
-    const recipients = ['user1@example.com', 'user2@example.com']; // Замість цього можна отримати список email із Google API
+    const recipients = ['yaroslav2002vas@gmail.com']; // Замість цього можна отримати список email із Google API
 
     await this.emailService.sendEmail(recipients, subject, message);
   }
