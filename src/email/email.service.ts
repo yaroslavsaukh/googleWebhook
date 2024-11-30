@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as mailgun from 'mailgun-js';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class EmailService {
