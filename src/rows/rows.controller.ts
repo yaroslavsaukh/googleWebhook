@@ -1,24 +1,30 @@
-import { Controller, Get, Param, Post, Body, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { RowsService } from './rows.service';
-import { Row } from './row.entity';
+import { CreateRowDto } from './row.dto';
 
+@ApiTags('Rows')
 @Controller('rows')
 export class RowsController {
   constructor(private readonly rowsService: RowsService) {}
 
+  @Post()
+  @ApiOperation({ summary: 'Створити новий рядок' })
+  @ApiResponse({ status: 201, description: 'Рядок успішно створено.' })
+  @ApiResponse({ status: 400, description: 'Некоректні дані.' })
+  async createRow(@Body() createRowDto: CreateRowDto) {
+    return this.rowsService.createRow(createRowDto);
+  }
+
   @Get()
+  @ApiOperation({ summary: 'Отримати всі рядки' })
   async getAllRows() {
     return this.rowsService.getAllRows();
   }
 
   @Get(':id')
-  async getRow(@Param('id') id: string) {
-    return this.rowsService.getRowById(+id);
-  }
-
-  @Post()
-  async saveRow(@Body('content') content: string) {
-    const data: Partial<Row> = { content };
-    return this.rowsService.addRow(data);
+  @ApiOperation({ summary: 'Отримати один рядок за ID' })
+  async getRowById(@Param('id') id: number) {
+    return this.rowsService.getRowById(id);
   }
 }
